@@ -64,7 +64,37 @@ internal class Ejemplos
     //Eliminar un alumno por clave y listar por consola los alumnos
     public static void EjemploDictionary()
     {
+        Console.WriteLine("=== EJEMPLO DICTIONARY ===");
+        CasoDictionary casoDict = new CasoDictionary();
 
+        Alumno a1 = new Alumno(101, "Lautaro Martinez", 7.8);
+        Alumno a2 = new Alumno(102, "Exequiel Palacios", 8.4);
+        Alumno a3 = new Alumno(103, "Ian Figueroa", 9.5);
+
+        casoDict.AgregarAlumno(a1.Id, a1);
+        casoDict.AgregarAlumno(a2.Id, a2);
+        casoDict.AgregarAlumno(a3.Id, a3);
+
+        Console.WriteLine("\n--- LISTAR ALUMNOS EN DICCIONARIO ---");
+        foreach (Alumno a in casoDict.RetornarDiccionario().Values)
+        {
+            Console.WriteLine($"Legajo: {a.Id} -> Alumno: {a.Nombre} - Promedio: {a.Promedio}");
+        }
+
+        Console.WriteLine("\n--- BUSCAR CLAVE EXISTENTE [102] ---");
+        Alumno alumnoClaveOk = casoDict.BuscarAlumnoPorClave(102);
+        Console.WriteLine(alumnoClaveOk != null ? $"Legajo: {alumnoClaveOk.Id} -> Alumno: {alumnoClaveOk.Nombre} - Promedio: {alumnoClaveOk.Promedio}" : "Alumno buscado no existe");
+
+        Console.WriteLine("\n--- BUSCAR CLAVE INEXISTENTE [999] ---");
+        Alumno alumnoClaveFalsa = casoDict.BuscarAlumnoPorClave(999);
+        Console.WriteLine(alumnoClaveFalsa != null ? $"Legajo: {alumnoClaveFalsa.Id} -> Alumno: {alumnoClaveFalsa.Nombre} - Promedio: {alumnoClaveFalsa.Promedio}" : "Alumno buscado no existe");
+
+        Console.WriteLine("\n--- ELIMINAR ALUMNO CON CLAVE [101] Y LISTAR ---");
+        casoDict.EliminarPorClave(101);
+        foreach (Alumno a in casoDict.RetornarDiccionario().Values)
+        {
+            Console.WriteLine($"Legajo: {a.Id} -> Alumno: {a.Nombre}");
+        }
     }
 
     //Realizar una llamada a cada método definido en CasoLinq y mostar por consola según corresponda
