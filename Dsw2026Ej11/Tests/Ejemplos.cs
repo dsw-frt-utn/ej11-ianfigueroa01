@@ -100,6 +100,50 @@ internal class Ejemplos
     //Realizar una llamada a cada método definido en CasoLinq y mostar por consola según corresponda
     public static void EjemploLinq()
     {
+        List<Libro> listaDeLibros = Libro.CrearLista();
+        CasoLinq casoLinq = new CasoLinq(listaDeLibros);
 
+        Console.WriteLine($"PRIMER LIBRO: {casoLinq.GetPrimero()?.Titulo} - ID: {casoLinq.GetPrimero()?.Id}\n");
+
+        Console.WriteLine($"ULTIMO LIBRO: {casoLinq.GetUltimo()?.Titulo} - ID: {casoLinq.GetUltimo()?.Id}\n");
+
+        Console.WriteLine($"TOTAL DE PRECIOS: {casoLinq.GetTotalPrecios():C}\n");
+
+        Console.WriteLine($"PROMEDIO PRECIOS: {casoLinq.GetPromedioPrecios():C}\n");
+
+        Console.WriteLine("LIBROS CON ID MAYOR A 15:");
+        IEnumerable<Libro> librosMayores15 = casoLinq.GetListById();
+        foreach (Libro l in librosMayores15)
+        {
+            Console.WriteLine($"   - ID: {l.Id} | Título: {l.Titulo}");
+        }
+
+        Console.WriteLine("\nLIBROS CON FORMATO: ");
+        IEnumerable<string> librosFormato = casoLinq.GetLibros();
+        foreach (string l in librosFormato)
+        {
+            Console.WriteLine(l);
+        }
+
+        Libro masCaro = casoLinq.GetMayorPrecio();
+        Console.WriteLine($"\nLIBRO MÁS CARO: {masCaro?.Titulo} ({masCaro?.Precio:C}) - ID: {masCaro.Id}\n");
+
+        Libro masBarato = casoLinq.GetMenorPrecio();
+        Console.WriteLine($"LIBRO MÁS BARATO: {masBarato?.Titulo} ({masBarato?.Precio:C}) - ID: {masBarato.Id}\n");
+
+        Console.WriteLine("LIBROS CON PRECIO MAYOR AL PROMEDIO:");
+        IEnumerable<Libro> sobrePromedio = casoLinq.GetMayorPromedio();
+
+        foreach (Libro l in sobrePromedio)
+        {
+            Console.WriteLine($"   - {l.Titulo} ({l.Precio:C})");
+        }
+
+        Console.WriteLine("\nLIBROS ORDENADOS DE FORMA DESCENDENTE:");
+        IEnumerable<Libro> ordenadosDesc = casoLinq.GetLibrosOrdenadosDesc();
+        foreach (Libro l in ordenadosDesc)
+        {
+            Console.WriteLine($"   - {l.Titulo}");
+        }
     }
 }
